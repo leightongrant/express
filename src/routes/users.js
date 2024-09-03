@@ -34,7 +34,7 @@ usersRouter.put(
 	(req, res) => {
 		const result = validationResult(req)
 		if (result.isEmpty()) {
-			const id = res.locals.id
+			const { id } = res.locals
 			users[id - 1] = { ...matchedData(req) }
 			return res.sendStatus(201)
 		} else {
@@ -50,7 +50,7 @@ usersRouter.patch(
 	(req, res) => {
 		const result = validationResult(req)
 		if (result.isEmpty()) {
-			const id = res.locals.id
+			const { id } = res.locals
 			users[id - 1].name = matchedData(req).name
 			return res.sendStatus(201)
 		} else {
@@ -60,7 +60,7 @@ usersRouter.patch(
 )
 
 usersRouter.delete('/api/users/:id', checkId, (req, res) => {
-	const id = res.locals.id
+	const { id } = res.locals
 	users.splice(id - 1, 1)
 	res.sendStatus(410)
 })
